@@ -1,6 +1,6 @@
 const { Server } = require('socket.io');
 
-const PORT = process.env.PORT || 8082;
+const PORT = process.env.PORT || 8083;
 const website = process.env.WebsiteURI || 'https://zentutor.ca';
 console.log('Starting server on port ' + PORT);
 const io = new Server(PORT, {

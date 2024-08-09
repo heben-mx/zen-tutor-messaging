@@ -6,4 +6,5 @@ yum update -y
 yum install git -y
 git clone https://github.com/heben-mx/zen-tutor-messaging.git
 cd zen-tutor-messaging
+npm install pm2 -g
 npm i && npm start
