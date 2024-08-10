@@ -1,12 +1,29 @@
+// Serving the app with express
+
+const express = require('express');
+const { createServer } = require('http');
+
 const { Server } = require('socket.io');
+const cors = require('cors');
+
+const app = express();
+const httpServer = createServer(app);
 
 const PORT = process.env.PORT || 8083;
 const website = process.env.WebsiteURI || 'https://zentutor.ca';
-console.log('Starting server on port ' + PORT);
-const io = new Server(PORT, {
+
+const io = new Server(httpServer, {
     cors: {
-        origin: website,
+        origin: website
     }
+});
+
+app.use(cors({
+    origin: website
+}));
+
+app.get('/', (req, res) => {
+    res.send('<h1>Hello World Health Check</h1>');
 });
 
 const clients = {};
@@ -32,6 +49,11 @@ io.on('connection', (socket) => {
     });
 
 });
+
+httpServer.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`);
+})
+
     //
     // function generateUniqueID() {
     //     return Math.random().toString(36).slice(2, 9);
