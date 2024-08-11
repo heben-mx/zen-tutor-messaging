@@ -10,16 +10,19 @@ const app = express();
 const httpServer = createServer(app);
 
 const PORT = process.env.PORT || 8083;
-const website = process.env.WebsiteURI || 'https://zentutor.ca';
+const allowedOrigins = [
+    process.env.WebsiteURI || 'https://zentutor.ca',
+    "http://localhost:4200"
+]
 
 const io = new Server(httpServer, {
     cors: {
-        origin: website
+        origin: allowedOrigins
     }
 });
 
 app.use(cors({
-    origin: website
+    origin: allowedOrigins
 }));
 
 app.get('/', (req, res) => {
